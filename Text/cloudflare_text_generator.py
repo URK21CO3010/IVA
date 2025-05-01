@@ -8,11 +8,27 @@ def read_file(path):
     return open(path, 'r').read()
 
 def get_response(prompt, instructions = ['common'], memory = "", model = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"):
+    all_instructions = ""
     for instruction in instructions:
         instruction_content = read_file(f'Instructions/{instruction}.txt')
+        all_instructions += instruction_content + '\n'
+
+    final_instruction = f"""
+Instructions:
+{all_instructions}
+
+    """
+
+    if len(memory) > 0:
+        final_instruction += f"""
+Conversation History:
+{memory}
+
+        """
+
     inputs = [
-        { "role": "system", "content": instruction_content},
-        { "role": "user", "content": memory + '\n' + prompt }
+        { "role": "system", "content": final_instruction},
+        { "role": "user", "content": prompt }
     ]
     input = { "messages": inputs }
     response = requests.post(f"{API_BASE_URL}{model}", headers=headers, json=input)

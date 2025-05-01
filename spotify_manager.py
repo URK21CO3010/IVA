@@ -12,30 +12,49 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id=CLIENT_ID,
     client_secret=CLIENT_SECRET,
     redirect_uri=REDIRECT_URI,
-    scope="playlist-modify-public",
+    scope="playlist-modify-public playlist-read-private playlist-modify-private",
     username=USERNAME
 ))
 
-# Function to search for tracks
-def search_tracks(keyword, limit=1):
-    results = sp.search(q=keyword, type="track", limit=limit)
-    track_uris = [track["uri"] for track in results["tracks"]["items"]]
-    return track_uris
-
-# Function to create a playlist
-def create_playlist(name, description=""):
-    playlist = sp.user_playlist_create(user=USERNAME, name=name, public=True, description=description)
+def create_playlist(playlist_name):
+    playlist = sp.user_playlist_create(user=USERNAME, name=playlist_name, public=True)
+    print(f"Created playlist '{playlist_name}'")
     return playlist["id"]
 
-# Function to add tracks to a playlist
-def add_tracks_to_playlist(playlist_id, track_uris):
-    sp.playlist_add_items(playlist_id=playlist_id, items=track_uris)
+def add_songs_to_playlist(playlist_name, song_names):
+    # Find playlist by name
+    playlists = sp.current_user_playlists()
+    playlist_id = None
+    for item in playlists["items"]:
+        if item["name"] == playlist_name:
+            playlist_id = item["id"]
+            break
 
-def get_playlist_id(playlist_name):
-    for playlist in sp.user_playlists(USERNAME)['items']:
-        if playlist['name'] == playlist_name:
-            return playlist['id']
+    if not playlist_id:
+        print(f"Playlist '{playlist_name}' not found.")
+        return
 
-def delete_playlist(playlist_id):
+    track_uris = []
+    for name in song_names:
+        result = sp.search(q=name, type="track", limit=1)
+        items = result["tracks"]["items"]
+        print(name, '->', end = ' ')
+        for i in items:
+            print(i['name'])
+        if items:
+            track_uris.append(items[0]["uri"])
+        else:
+            print(f"Song '{name}' not found.")
 
-    sp.current_user_unfollow_playlist(playlist_id)
+    if track_uris:
+        sp.playlist_add_items(playlist_id, track_uris)
+        print(f"Added {len(track_uris)} songs to playlist '{playlist_name}'")
+
+def delete_playlist(playlist_name):
+    playlists = sp.current_user_playlists()
+    for playlist in playlists["items"]:
+        if playlist["name"] == playlist_name:
+            sp.current_user_unfollow_playlist(playlist["id"])
+            print(f"Deleted playlist '{playlist_name}'")
+            return
+    print(f"Playlist '{playlist_name}' not found.")

@@ -5,6 +5,8 @@ Here are the valid operations: create_playlist, add_songs_to_playlist, delete_pl
 
 If the operation is create_playlist or delete_playlist, you can leave the songs list empty.
 
+In each song name, mention the singer name with a hyphen after the song name.
+
 In the confirmation_message field, give a short description of what exactly you did.
 
 There must not be any duplicate song names.

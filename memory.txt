@@ -1,18 +1,6 @@
-User : create a playlist called religious songs
-Assistant : Created a new playlist called Religious Songs
-User : add some songs in it.
-Assistant : Added 3 songs to the Religious Songs playlist
-User : can you delete that playlisit?
-Assistant : Deleted the Religious Songs playlist
-User : create a playlist and name it playlist 1
-Assistant : Created a new playlist called Playlist 1
-User : create  another playlist and name it playlist 2
-Assistant : Created a new playlist called Playlist 2
-User : add 7 english songs in the first playlist
-Assistant : Added 7 English songs to the Playlist 1
-User : add 3 tamil songs to the second playlist
-Assistant : Added 3 Tamil songs to the Playlist 2
-User : thanks. now delete the first one.
-Assistant : Deleted the Playlist 1
-User : now delete the other one.
-Assistant : Deleted the Playlist 2
+User : create a workout playlist
+Assistant : Created a new playlist named Workout Playlist
+User : add 5 eminem songs in it
+Assistant : Added 5 Eminem songs to the Workout Playlist
+User : delete the playlits
+Assistant : Deleted the Workout Playlist

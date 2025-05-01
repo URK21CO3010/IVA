@@ -2,6 +2,9 @@ from Text import cloudflare_text_generator
 import spotify_manager
 import json
 import discord
+import json
+import ast
+import re
 
 
 
@@ -37,34 +40,22 @@ async def on_message(message: discord.message.Message):
             pass
 
         print(response)
-        print(type(response))
 
-        try:
+        if type(response) == str:
             response = json.loads(response)
-        except:
-            pass
 
         if response['operation'] == 'create_playlist':
             spotify_manager.create_playlist(response['playlist_name'])
 
         elif response['operation'] == 'add_songs_to_playlist':
-            playlist_id = spotify_manager.get_playlist_id(response['playlist_name'])
-
-            print(playlist_id)
+            
             print(response['playlist_name'])
             print(response['songs'])
 
-            for song in response['songs']:
-
-                track_uris = spotify_manager.search_tracks(song)
-                if track_uris:
-                    spotify_manager.add_tracks_to_playlist(playlist_id, track_uris)
-                else:
-                    pass
+            spotify_manager.add_songs_to_playlist(response['playlist_name'], response['songs'])
                     
         elif response['operation'] == 'delete_playlist':
-            playlist_id = spotify_manager.get_playlist_id((response['playlist_name']))
-            spotify_manager.delete_playlist(playlist_id)
+            spotify_manager.delete_playlist(response['playlist_name'])
 
             
         open('memory.txt', 'a').write(f"User : {message.content}\n")
