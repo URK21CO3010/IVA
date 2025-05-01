@@ -81,4 +81,4 @@ async def on_message(message: discord.message.Message):
 
 
 
-bot.run("MTM1MjI5NDU4NTk4ODI4ODUzMg.G2Qoey.m0cRoT9dJe3keJ08lhUB0-D6WdD1cHW0ndOPhQ")
+bot.run("")
