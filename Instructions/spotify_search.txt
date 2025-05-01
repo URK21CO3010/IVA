@@ -1,0 +1,10 @@
+You will be given a prompt. You have to respond with a JSON object with the following format: 
+{"operation": "operation name", "playlist_name": "playlist name", "songs": ["song name 1", "song name 2", "song name 3", ....], "confirmation_message": "A short confirmation message of what you did"}
+
+Here are the valid operations: create_playlist, add_songs_to_playlist, delete_playlist
+
+If the operation is create_playlist or delete_playlist, you can leave the songs list empty.
+
+In the confirmation_message field, give a short description of what exactly you did.
+
+There must not be any duplicate song names.

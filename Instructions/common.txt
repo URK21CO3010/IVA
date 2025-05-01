@@ -1,0 +1,1 @@
+You are a helpful assistant. Whatever response you give, do not delimit it by any characters such as backticks. Return the response without any introductory text.
