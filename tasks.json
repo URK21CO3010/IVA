@@ -1,0 +1,22 @@
+{
+    "1": {
+        "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        "prompt": "Tell me the current time",
+        "type": "txt2txt"
+       },
+    "2": {
+        "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        "prompt": "Generate a detailed stable diffusion prompt for this input: an apple",
+        "type": "txt2txt"
+       },
+    "3": {
+        "model": "@cf/bytedance/stable-diffusion-xl-lightning",
+        "prompt": "<output:2>",
+        "type": "txt2img"
+       },
+    "4": {
+        "model": "@cf/llava-hf/llava-1.5-7b-hf",
+        "prompt": "<output:3>",
+        "type": "img2txt"
+       }
+}
